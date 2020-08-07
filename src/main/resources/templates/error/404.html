@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>访问错误</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/typo.css">
+    <link href="../static/css/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+
+</head>
+<body>
+<!--导航  开始-->
+<div th:replace="_fragment :: menu(0)"></div>
+<!--导航  结束-->
+<br>
+<br>
+<br>
+<br>
+<div class="m-container-small m-padded-tb-massive">
+    <div class="ui error message m-padded-tb-massive">
+        <div class="ui container">
+            <h2>404</h2>
+            <p>访问的资源不存在</p>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<div th:replace="_fragment :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>关于我</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+
+</head>
+<body>
+<!--导航  开始-->
+<div th:replace="_fragment :: menu(5)"></div>
+<!--导航  结束-->
+
+<!--中间内容  开始-->
+<div class=" m-padded-tb-big">
+    <div class="ui container">
+
+        <div class="ui stackable grid">
+
+            <div class="eleven wide column">
+                <div class="ui segment">
+                    <img th:src="@{/img/test.jpg}" class="ui rounded image" alt="">
+                </div>
+
+            </div>
+
+            <div class="five wide column">
+                <div class=" ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">一名大专学生，正在学习spring技术栈，前端技术，安卓技术，以及前端的vue技术栈等等</p>
+                    <p class="m-text">热爱编程，喜欢钻研新的技术</p>
+                </div>
+
+                <div class="ui attached segment">
+                    <div class="ui orange basic top pointing label">编程</div>
+                    <div class="ui orange basic top pointing label">思考</div>
+                    <div class="ui orange basic top pointing label">项目</div>
+                    <div class="ui orange basic top pointing label">分享</div>
+                </div>
+                <div class="ui  attached segment">
+                    <div class="ui teal basic top pointing label ">java</div>
+                    <div class="ui teal basic top pointing label">js</div>
+                    <div class="ui teal basic top pointing label">spring</div>
+                    <div class="ui teal basic top pointing label">mysql</div>
+                    <div class="ui teal basic top pointing label">vue</div>
+                    <div class="ui teal basic top pointing label">vue</div>
+                    <div class="ui teal basic top pointing label">node</div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="2354879324"><i class="qq icon"></i></a>
+                    <a href="#" class="ui weixin circular icon button"><i class="weixin icon"></i></a>
+
+                </div>
+                <div class="ui wechat-qr flowing popup transition hidden">
+                    <img th:src="@{/img/wechart.png}" style="width: 120px" class="ui rounded image" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<!--中间内容  结束-->
+
+<!--底部  开始-->
+<footer th:replace="_fragment :: footer" class="ui inverted segment vertical m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui divided stackable inverted grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item"><img src="../static/img/wechart.png" class="ui rounded image" alt="" style="width: 110px"></div>
+
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事（user story）</a>
+                    <a href="#" class="item">用户故事（user story）</a>
+                    <a href="#" class="item">用户故事（user story）</a>
+                    <a href="#" class="item">用户故事（user story）</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="three wide column">
+                    <h4 class="ui inverted header">联系我</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">email:2354879324@qq.com</a>
+                        <a href="#" class="item">wechart:22354879324wj</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4>最新博客</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客，你们可以参考，借鉴，搬运。复制粘贴，都可以，也希望你们能够从我这里学到新的技术。</p>
+            </div>
+        </div>
+
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-mini">版权所有 © 洋波科技股份有限公司 皖ICP备05001217号-71 皖公网安备 34019202000117号
+        </p>
+
+    </div>
+
+
+
+</footer>
+<!--底部  结束-->
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+<script>
+    $('#toggle_menu').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    })
+
+    $('.weixin').popup({
+        popup:$('.wechat-qr'),
+        on:'hover',
+        position:'bottom center'
+    })
+
+    $('.qq').popup()
+</script>
+
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+
+<head th:replace="_fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>博客详情</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/typo.css">
+    <link href="../static/css/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+
+</head>
+<body>
+    <!--导航  开始-->
+    <div th:replace="_fragment :: menu(1)"></div>
+    <!--导航  结束-->
+
+    <!--中间内容  开始-->
+    <div id="waypoint" class="m-container-small m-padded-tb-big animated fadeInUpBig">
+        <div class="ui container">
+            <!--头部  开始-->
+           <div class="ui top attached segment">
+               <div class="ui  horizontal link list">
+                   <div class="item">
+                       <img th:src="@{${blog.user.avatar}}" src="../static/img/test.jpg" class="ui avatar image" width="100px" height="100px" alt="">
+                       <div class="content"><a href="#" class="header" th:text="${blog.user.nicname}">王吉</a></div>
+                   </div>
+                   <div class="item">
+                       <i class="calendar icon"></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-01-01</span>
+                   </div>
+                   <div class="item">
+                       <i class="eye icon"></i> <span th:text="${blog.views}">1524</span>
+                   </div>
+               </div>
+           </div>
+            <!--头部   结束-->
+
+
+            <!--图片  区域 开始-->
+            <div class="ui attached segment">
+                <img th:src="@{${blog.fistPicture}}" src="../static/img/test.jpg" class="ui fluid image rounded" alt="">
+            </div>
+            <!--图片  区域  结束-->
+
+
+            <!--内容  区域  开始-->
+            <div class="ui  attached segment padded">
+                <div class="ui basic segment right aligned">
+                    <div class="ui orange label basic" th:text="${blog.flag}">原创</div>
+                </div>
+                <h2 class="ui header center aligned" th:text="${blog.title}">关于刻意练习的清单</h2><br>
+                <!--主题的内容-->
+                <div id="content" class="typo js-toc-content typo-selection
+                  m-padded-lr-responsive m-padded-tb-large" th:utext="${blog.content}">
+
+
+                    <h5 id="appendix2">2、开源许可</h5>
+                </div>
+                <!--博客 标签-->
+                <div class="m-padded-lr m-padded-tb-large">
+                    <div class="ui basic teal left pointing label">方法论</div>
+                </div>
+
+                <!--博客  赞赏-->
+                <div class="ui center aligned basic segment">
+                    <button id="payBtn" class="ui basic orange circular button">赞赏</button>
+                </div>
+                <!--赞赏  二维码-->
+                <div class="ui payQ flowing popup transition hidden">
+                    <div class="ui orange basic label">
+                        <div class="ui images" style="font-size: inherit!important;">
+                            <div class="image" >
+                                <img th:src="@{/img/zfb.png}" src="../static/img/zfb.png" alt="" class="ui rounded bordered image" style="width: 120px">
+                                <div>支付宝</div>
+                            </div>
+                            <div class="image">
+                                <img th:src="@{/img/zfb.png}" src="../static/img/zfb.png" alt="" class="ui rounded bordered image" style="width: 120px">
+                                <div>微信</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!--内容  区域  开始-->
+
+
+            <!--博客信息说明  开始-->
+            <div class="ui attached positive message">
+                <div class="ui grid middle aligned">
+                    <div class="eleven wide column">
+                        <ul class="list">
+                            <li> 作者：<span th:text="${blog.user.nicname}">王吉</span><a th:href="@{/about.html}">(联系作者)</a>  </li>
+                            <li> 发表时间：<span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2020-5-22</span> </li>
+                            <li> 版权声明：可自由转载但需署名 </li>
+                            <li> 公众号转载：请在文中添加作者公众号二维码 </li>
+                        </ul>
+                    </div>
+                    <div class="five wide column">
+                        <img src="../static/img/wechart.png" th:src="@{/img/wechart.png}" class="ui right floated rounded bordered image" width="110px" alt="">
+                    </div>
+                </div>
+
+            </div>
+            <!--博客信息说明  结束-->
+
+            <!--留言区域   开始-->
+            <div class="ui bottom attached segment" >
+                <div id="comment-container"  class="ui teal segment">
+                    <div th:fragment="commentList">
+                        <div class="ui threaded comments" style="max-width: 100%">
+                            <h3 class="ui dividing header">Comments</h3>
+                            <div class="comment" th:each="comment : ${comments}">
+                                <a class="avatar">
+                                    <img th:src="@{${comment.avatar}}" src="../static/img/1.jpg">
+                                </a>
+                                <div class="content">
+                                    <a class="author" th:text="${comment.nicname}">Matt</a>
+                                    <div class="metadata">
+                                        <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                    </div>
+                                    <div class="text" th:text="${comment.content}">
+                                        How artistic!
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply" data-commentid="1" data-commentnicname="Matt"
+                                           th:attr="data-commentid=${comment.id},data-commentnicname=${comment.nicname}" onclick="reply(this)">回复</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--评论  表单-->
+                            <div id="comment-form" class="ui reply form">
+                                <input type="hidden" name="blog.id" th:value="${blog.id}">
+                                <input type="hidden" name="parentComment.id" value="-1">
+                                <div class="field">
+                                    <textarea name="content" placeholder="请输入评论内容..."></textarea>
+                                </div>
+                                <div class="fields">
+                                    <div class="field m-mobile-wide m-margin-bottom-mini">
+                                        <div class="ui icon input">
+                                            <i class="user icon"></i>
+                                            <input type="text" name="nicname" placeholder="姓名">
+                                        </div>
+
+                                    </div>
+                                    <div class="field m-mobile-wide m-margin-bottom-mini">
+                                        <div class="ui icon input">
+                                            <i class="mail icon"></i>
+                                            <input type="email" name="email" placeholder="邮箱">
+                                        </div>
+                                    </div>
+                                    <div class="field m-mobile-wide m-margin-bottom-mini" >
+                                        <button type="button" id="commentpost-btn" class="ui teal  button m-mobile-wide"><i class="edit icon"></i> 发布</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!--留言区域   结束-->
+
+        </div>
+
+
+    </div>
+    <!--中间内容  结束-->
+
+    <!--工具条-->
+    <div id="toolbar" class="m-padded-tb-massive m-fixed m-right-bottom" style="display: none">
+        <div class="ui vertical icon buttons ">
+            <button type="button"  class="ui toc teal button">目录</button>
+            <a href="#comment-container" class="ui teal button">留言</a>
+            <button class="ui wechat icon  button"><i class="weixin icon"></i></button>
+            <div id="totop" class="ui icon button"><i class="chevron up icon"></i></div>
+        </div>
+    </div>
+<!--    目录的弹出层-->
+    <div class="ui toc-container flowing popup transition hidden" style="width: 250px">
+
+        <ol class="js-toc">
+
+        </ol>
+    </div>
+    <!--微信二维码-->
+    <div id="qrcode" class="ui wechat-qr flowing popup transition  hidden" style="width: 130px !important;">
+<!--        <img src="./static/img/wechart.png" style="width: 120px" class="ui rounded image" alt="">-->
+    </div>
+
+    <br>
+    <br>
+    <!--底部  开始-->
+    <div th:replace="_fragment :: footer"></div>
+
+    <!--底部  结束-->
+
+    <!--js引用-->
+
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+
+
+    <script th:inline="javascript">
+        $('#toggle_menu').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide');
+        })
+        $('#payBtn').popup({
+            popup:$('.payQ.popup'),
+            on:'click',
+            position:'bottom center'
+        })
+        $('.toc').popup({
+            popup:$('.toc-container.popup'),
+            on:'click',
+            position:'left center'
+        })
+
+        $('.wechat').popup({
+            popup:$('.wechat-qr'),
+            on:'hover',
+            position:'left center'
+        })
+
+        //目录生成
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.js-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.js-toc-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3',
+            // For headings inside relative or absolute positioned containers within content.
+            hasInnerContainers: true,
+        });
+
+        //二维码生成
+        var server = "http://localhost:8080"
+        var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
+        var qrcode = new QRCode("qrcode", {
+            text: server+url,
+            width: 120,
+            height: 120,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+
+
+        //滚动监听
+        var waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function(direction) {
+                if (direction=='down'){
+                    $('#toolbar').show().addClass('animated bounceInLeft');
+                }else {
+                    $('#toolbar').hide(500);
+                }
+                console.log('Scrolled to waypoint!'+direction)
+            }
+        })
+
+        //平滑滚动
+        $('#totop').click(function () {
+            $(window).scrollTo(0,1500)
+        })
+
+        //评论表单验证
+        $('.ui.form').form({
+            fields: {
+                title: {
+                    identifier: 'content',
+                    rules: [{
+                        type: 'empty',
+                        prompt: '请输入评论内容'
+                    }
+                    ]
+                },
+                content: {
+                    identifier: 'nicname',
+                    rules: [{
+                        type: 'empty',
+                        prompt: '请输入你的大名'
+                    }]
+                },
+                type: {
+                    identifier: 'email',
+                    rules: [{
+                        type: 'email',
+                        prompt: '请填写正确的邮箱地址'
+                    }]
+                }
+            }
+        });
+
+        $('#commentpost-btn').click(function () {
+            var boo = $('.ui.form').form('validate form');
+            if (boo){
+                // 是否通过
+                console.log('校验通过');
+                postData();
+            }else {
+                console.log('校验不通过');
+            }
+        });
+
+        //清除表单内容
+        function clearContent() {
+            $("[name='content']").val('');
+            $("[name='parentComment.id']").val(-1);
+            $("[name='content']").attr("placeholder", "请输入评论信息......");
+        }
+
+        //发起请求,提交数据
+        function postData() {
+            $("#comment-container").load(/*[[@{/comments}]]*/"",{
+                "parentComment.id" : $("[name='parentComment.id']").val(),
+                "blog.id" : $("[name='blog.id']").val(),
+                "nicname": $("[name='nicname']").val(),
+                "email"   : $("[name='email']").val(),
+                "content" : $("[name='content']").val()
+            },function (responseTxt, statusTxt, xhr) {
+//        $(window).scrollTo($('#comment-container'),500);
+                clearContent();
+            });
+        }
+
+        function reply(obj){
+            var commentId = $(obj).data('commentid');
+            var commentNickname = $(obj).data('commentnicname');
+
+            $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
+            $("[name='parentComment.id']").val(commentId);
+            $(window).scrollTo($('#comment-form'),500);
+        }
+
+    </script>
+
+</body>
+</html>

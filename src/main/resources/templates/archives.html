@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>归档</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+
+</head>
+<body>
+<!--导航  开始-->
+<nav th:replace="_fragment :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted stackable secondary menu">
+            <h2 class="ui teal header item">Blog</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="calendar outline icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class=" m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui icon transparent inverted input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" id="toggle_menu" class="ui menu inverted icon button m-top-right m-mobile-show"> <i class="sidebar icon"></i></a>
+</nav>
+<!--导航  结束-->
+
+<!--中间内容  开始-->
+<div  class="m-container-small m-padded-tb-big" style="height: 800px!important;">
+    <div class="ui container">
+        <!--header-->
+        <div class="ui top attached padded segment">
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <h3 class="ui teal header">归档</h3>
+                </div>
+                <div class="right aligned column">
+                    共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}"> 114 </h2> 篇博客
+                </div>
+            </div>
+        </div>
+
+        <th:block th:each="item : ${archiveMap}">
+            <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
+            <div class="ui fluid vertical menu">
+                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${item.value}">
+          <span>
+            <i class="mini teal circle icon"></i> &nbsp;&nbsp; <span th:text="${blog.title}">关于刻意练习的清单</span>
+            <div class="ui teal basic left pointing label m-padded-mini " th:text="${#dates.format(blog.updateTime,'MMMdd')}">9月03</div>
+          </span>
+                    <div class="ui orange basic left pointing label m-padded-mini " th:text="${blog.flag}">原创</div>
+                </a>
+                <!--/*-->
+                <a href="#" target="_blank" class="item">
+          <span>
+            <i class="mini teal circle icon"></i>关于刻意练习的清单
+            <div class="ui teal basic left pointing label m-padded-mini ">9月03</div>
+          </span>
+                    <div class="ui orange basic left pointing label m-padded-mini ">原创</div>
+                </a>
+                <a href="#" target="_blank" class="item">
+          <span>
+            <i class="mini teal circle icon"></i>关于刻意练习的清单
+            <div class="ui teal basic left pointing label m-padded-mini ">9月03</div>
+          </span>
+                    <div class="ui orange basic left pointing label m-padded-mini ">原创</div>
+                </a>
+                <a href="#" target="_blank" class="item">
+          <span>
+            <i class="mini teal circle icon"></i>关于刻意练习的清单
+            <div class="ui teal basic left pointing label m-padded-mini ">9月03</div>
+          </span>
+                    <div class="ui orange basic left pointing label m-padded-mini ">原创</div>
+                </a>
+                <!--*/-->
+            </div>
+        </th:block>
+
+    </div>
+</div>
+<!--中间内容  结束-->
+
+<!--底部  开始-->
+<footer th:replace="_fragment :: footer" class="ui inverted segment vertical m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui divided stackable inverted grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item"><img src="../static/img/wechart.png" class="ui rounded image" alt="" style="width: 110px"></div>
+
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事（user story）</a>
+                    <a href="#" class="item">用户故事（user story）</a>
+                    <a href="#" class="item">用户故事（user story）</a>
+                    <a href="#" class="item">用户故事（user story）</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="three wide column">
+                    <h4 class="ui inverted header">联系我</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">email:2354879324@qq.com</a>
+                        <a href="#" class="item">wechart:22354879324wj</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4>最新博客</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客，你们可以参考，借鉴，搬运。复制粘贴，都可以，也希望你们能够从我这里学到新的技术。</p>
+            </div>
+        </div>
+
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-mini">版权所有 © 洋波科技股份有限公司 皖ICP备05001217号-71 皖公网安备 34019202000117号
+        </p>
+
+    </div>
+
+
+
+</footer>
+<!--底部  结束-->
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+<script>
+    $('#toggle_menu').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    })
+    $('#payBtn').popup({
+        popup:$('.payQ.popup'),
+        on:'click',
+        position:'bottom center'
+    })
+</script>
+
+</body>
+</html>

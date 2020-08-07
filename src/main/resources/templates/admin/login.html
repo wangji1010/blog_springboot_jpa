@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>后台管理</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" th:href="@{/css/me.css}" href="../../static/css/me.css">
+
+
+
+
+</head>
+<body>
+
+<br>
+<br>
+<br>
+<br>
+        <div class="m-container-small m-padded-tb-massive" style="max-width: 30em!important;">
+            <div class="ui container">
+                <div class="ui middle aligned center aligned grid">
+                    <div class="column">
+                        <h2 class="ui teal image header">
+
+                            <div class="content">
+                               管理后台登录
+                            </div>
+                        </h2>
+                        <form class="ui large form" th:action="@{/admin/login}" method="post">
+                            <div class="ui stacked segment">
+                                <div class="field">
+                                    <div class="ui left icon input">
+                                        <i class="user icon"></i>
+                                        <input type="text" name="username" placeholder="用户名">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui left icon input">
+                                        <i class="lock icon"></i>
+                                        <input type="password" name="password" placeholder="密码">
+                                    </div>
+                                </div>
+                                <div class="ui fluid large teal submit button">登录</div>
+                            </div>
+
+                            <div class="ui error mini message"></div>
+
+                            <div class="ui negative message mini" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script src="../../static/lib/editormd/editormd.min.js"></script>
+
+
+<script type="text/javascript">
+
+    /*初始化markdown编辑器*/
+    var contentEditor;
+    $(function() {
+        contentEditor = editormd("md-content", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "../static/lib/editormd/lib/"
+        });
+
+
+    });
+
+    $('#toggle_menu').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    })
+    $('.ui.dropdown')
+        .dropdown({
+            on:'hover'
+        })
+    ;
+    $('#payBtn').popup({
+        popup:$('.payQ.popup'),
+        on:'click',
+        position:'bottom center'
+    })
+
+    $('.ui.form').form({
+        fields:{
+            title:{
+                identifier:'title',
+                rules:[{
+                    type:'empty',prompt:'标题：请输入博客标题'
+                }]
+            }
+        }
+    })
+
+    $('.ui.form').form({
+        fields:{
+            username:{
+                identifier:'username',
+                rules:[{
+                    type:'empty',prompt:'标题：请输入用户名'
+                }]
+            },
+            password:{
+                identifier:'password',
+                rules:[{
+                    type:'empty',prompt:'标题：请输入密码'
+                }]
+            }
+        }
+    })
+
+
+
+
+
+</script>
+
+</body>
+</html>

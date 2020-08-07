@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>分类管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/me.css">
+
+</head>
+<body>
+<!--导航  开始-->
+<nav th:replace="admin/_fragment :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted stackable secondary menu">
+            <h2 class="ui teal header item">后台管理</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="calendar outline icon"></i>博客</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+           <div class="right m-item m-mobile-hide menu">
+               <div class="ui dropdown item">
+                   <div class="text">
+                       <img class="ui avatar image" src="../../static/img/1.jpg">
+                       王吉
+                   </div>
+                   <i class="dropdown icon"></i>
+                   <div class="menu">
+                       <a href="#" class="item">注销</a>
+                       <a href="#" class="item">修改密码</a>
+
+                   </div>
+               </div>
+           </div>
+
+        </div>
+    </div>
+    <a href="#" id="toggle_menu" class="ui menu inverted icon button m-top-right m-mobile-show">
+        <i class="sidebar icon"></i></a>
+</nav>
+<!--导航  结束-->
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a th:href="@{/admin/types/input}" class=" item">发布</a>
+            <a th:href="@{/admin/types}" class="active teal item">列表</a>
+        </div>
+
+    </div>
+
+</div>
+
+<!--中间内容  开始-->
+<div class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header">提示</div>
+            <p th:text="${message}">操作成功！</p>
+        </div>
+
+        <!--表格区域  开始-->
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>分类名称</th>
+
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="type,iterStat : ${page.content}">
+                    <td th:text="${iterStat.count}">1</td>
+
+                    <td th:text="${type.name}">vue大前端</td>
+                    <td><a th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini teal button"><i class="edit icon"></i>编辑</a>
+                    <a th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red button"><i class="delete icon"></i>删除</a>
+
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="6" >
+                        <div class="ui mini left floated pagination menu" th:if="${page.totalPages}>1">
+                            <a th:href="@{/admin/types(page=${page.number}-1)}" class=" item" th:unless="${page.first}">上一页</a>
+                            <a th:href="@{/admin/types(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>
+                        </div>
+                        <a th:href="@{/admin/types/input}" class="ui mini basic right floated teal button">新增</a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <!--表格区域  结束-->
+
+    </div>
+
+
+</div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+<script>
+
+    //点击图标关闭提示框
+    $('.close.icon').on('click',function () {
+        $(this).closest('.message')
+        .transition('fade')
+    })
+
+
+
+    $('#toggle_menu').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    })
+    $('.ui.dropdown')
+        .dropdown({
+            on:'hover'
+        })
+    ;
+    $('#payBtn').popup({
+        popup:$('.payQ.popup'),
+        on:'click',
+        position:'bottom center'
+    })
+</script>
+
+</body>
+</html>
